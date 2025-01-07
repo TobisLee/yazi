@@ -29,7 +29,14 @@ impl Input {
 			self.move_(0);
 		} else {
 			snap.value.remove(snap.idx(snap.cursor - 1).unwrap());
-			self.move_(-1);
+			let buffer: usize = 3;
+			if snap.cursor - 1 < buffer {
+				self.move_(-1);
+			}
+			else {
+				self.move_(-1 - (buffer as isize));
+				self.move_(buffer as isize);
+			}
 		}
 
 		self.flush_value();
